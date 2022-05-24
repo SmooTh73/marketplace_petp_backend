@@ -1,0 +1,13 @@
+# logs
+errors.json
+output.json
+
+# main files
+/node_modules
+.vscode/
+
+# project config
+.env
+
+# build
+dist
