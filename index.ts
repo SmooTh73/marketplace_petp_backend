@@ -11,7 +11,7 @@ app.use(cors());
 
 app.listen(config.app.PORT, () => {
     try {
-        db()
+        db();
         console.log(`Server is running on ${config.app.PORT}`);
     } catch (error) {
         console.log(error);
