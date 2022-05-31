@@ -1,8 +1,13 @@
 import { IConfig } from './interfaces';
 
+import { EMode } from './enums'; 
+
 require('dotenv').config();
 
+const mode = process.env.MODE as keyof typeof EMode;
+
 const config: IConfig = {
+    mode,
     app: {
         PORT: process.env.PORT || 6000,
     },

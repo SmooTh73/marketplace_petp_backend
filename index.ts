@@ -1,7 +1,8 @@
 import express from 'express';
 import config from './src/config/index';
 import cors from 'cors';
-import db from './src/db/index';
+
+import errorHandler from './src/errors/error-handler';
 
 const app = express();
 
@@ -10,11 +11,8 @@ app.use(cors());
 
 
 app.listen(config.app.PORT, () => {
-    try {
-        db();
-        console.log(`Server is running on ${config.app.PORT}`);
-    } catch (error) {
-        console.log(error);
-    }
+    console.log(`Server is running on ${config.app.PORT}`);
 });
+
+app.use(errorHandler);
 

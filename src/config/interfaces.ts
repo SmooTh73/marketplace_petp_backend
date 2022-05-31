@@ -13,6 +13,7 @@ interface IDataBase {
 
 
 export interface IConfig {
+    mode: string;
     app: IApp;
     database: IDataBase;
 }
