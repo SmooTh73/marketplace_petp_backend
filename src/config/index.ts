@@ -18,6 +18,16 @@ const config: IConfig = {
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         name: process.env.DB_NAME
+    },
+    jwt: {
+        user_access_secret: process.env.JWT_USER_ACCESS_SECRET,
+        user_refresh_secret: process.env.JWT_USER_REFRESH_SECRET,
+        user_access_expiresIn: process.env.USER_ACCESS_EXPIRESIN,
+        user_refresh_exriresIn: process.env.USER_REFRESH_EXPIRESIN,
+        admin_access_secret: process.env.JWT_ADMIN_ACCESS_SECRET,
+        admin_refresh_secret: process.env.JWT_ADMIN_REFRESH_SECRET,
+        admin_access_expiresIn: process.env.ADMIN_ACCESS_EXPIRESIN,
+        admin_refresh_exriresIn: process.env.ADMIN_REFRESH_EXPIRESIN,
     }
 }
 
