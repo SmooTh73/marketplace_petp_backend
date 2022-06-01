@@ -3,7 +3,7 @@ import { BaseUser } from './entities/base-user';
 import { Store } from "./store-model";
 
 
-@Entity({ name: 'store-owner' })
-export class StoreOwner extends BaseUser {
+@Entity({ name: 'seller' })
+export class Seller extends BaseUser {
 
 }

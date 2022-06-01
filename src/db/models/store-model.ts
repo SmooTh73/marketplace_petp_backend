@@ -1,5 +1,5 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm";
-import { StoreOwner } from "./store-owner-model";
+import { Seller } from "./seller-model";
 import { Product } from "./product-model";
 
 
@@ -11,9 +11,9 @@ export class Store extends BaseEntity {
     @Column()
     name: string;
 
-    @OneToOne(() => StoreOwner)
+    @OneToOne(() => Seller)
     @JoinColumn()
-    store_owner: StoreOwner
+    seller: Seller
 
     @OneToMany(() => Product, (product) => product.store)
     products: Product[];
