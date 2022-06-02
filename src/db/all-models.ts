@@ -6,6 +6,7 @@ import { Rating } from './models/rating-model';
 import { Product, Type, Brand } from './models/product-model';
 import { Basket } from './models/basket-model';
 import { BasketProduct } from './models/basket-product-model';
+import { Token } from './models/token-model';
 
 
 export default {
@@ -18,5 +19,6 @@ export default {
     Type,
     Brand,
     Basket,
-    BasketProduct
+    BasketProduct,
+    Token
 }
