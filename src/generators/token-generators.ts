@@ -5,7 +5,7 @@ import { EAccountType } from '../config/enums';
 
 
 export default {
-    generateTokens(payload: any, accountType: keyof typeof EAccountType) {
+    generateTokens(payload: string | Object, accountType: keyof typeof EAccountType) {
         if (accountType === EAccountType[EAccountType.admin]) {
             const accessToken = jwt.sign(
                 payload,
