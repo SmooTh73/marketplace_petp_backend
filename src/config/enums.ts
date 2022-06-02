@@ -4,7 +4,11 @@ export enum EMode {
 }
 
 export enum EAccountType {
-	customer = 'customer',
-	seller = 'seller',
+	user = 'user',
 	admin = 'admin',
+}
+
+export enum EUserType {
+	customer,
+	seller
 }

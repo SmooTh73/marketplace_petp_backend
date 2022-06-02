@@ -1,10 +1,19 @@
 import { Router } from 'express';
 import userController from '../controllers/user-controller';
+import validationMiddleware from '../middlewares/validation/index';
+import userSchema from '../validation/user/user-object-schema';
+import userTypeSchema from '../validation/user/user-type-schema';
 
 
 const userRouter = Router();
 
-userRouter.post('/register/:type', userController.register);
+//________________POST_______________//
+userRouter.post(
+    '/register/:type',
+    validationMiddleware(userSchema, 'body'),
+    validationMiddleware(userTypeSchema, 'params'),
+    userController.register
+);
 
 
 export default userRouter;

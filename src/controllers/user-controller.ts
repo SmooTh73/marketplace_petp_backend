@@ -3,7 +3,7 @@ import { ICustomReq } from "src/interfaces/request-interfaces";
 import { IBaseUser } from "../interfaces/user-interfaces";
 import db from '../db/index';
 import userService from '../services/userService/index';
-import { EAccountType } from "../config/enums";
+import { EUserType } from "../config/enums";
 
 
 export default {
@@ -14,8 +14,7 @@ export default {
     ): Promise<void> {
         try {
             const data: IBaseUser = req.body;
-            const type: Exclude< EAccountType, EAccountType.admin> = 
-                req.params.type as Exclude< EAccountType, EAccountType.admin>;
+            const type: keyof typeof EUserType = req.params.type as keyof typeof EUserType;
 
             const tokens = await userService.register(data, type);
             res.json({ success: true, tokens });
