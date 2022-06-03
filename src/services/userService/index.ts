@@ -16,25 +16,18 @@ export default {
         if (candidate) throw ApiError.badRequest('User with this email already exits.');
 
         const cryptedPass = await bcrypt.hash(data.password, 10);
-
-        let user = (accountType == EUserType[EUserType.customer])
-            ? db.Customer.create({
-                name: data.name,
-                surname: data.surname,
-                email: data.email,
-                password: cryptedPass
-            })
-            : db.Seller.create({
-                name: data.name,
-                surname: data.surname,
-                email: data.email,
-                password: cryptedPass
-            });
         
+        let user = db[(accountType[0].toUpperCase() + accountType.slice(1,))].create({
+                    name: data.name,
+                    surname: data.surname,
+                    email: data.email,
+                    password: cryptedPass
+        })
+
         const tokens = tokenGenerators.generateTokens({ id: user.id, type: accountType }, 'user');
         const tokenToDB = db.Token.create({ refresh: tokens.refreshToken });
 
-        user.token_id = tokenToDB;
+        user.token_id = tokenToDB;  
         await user.save();
         await tokenToDB.save();
 

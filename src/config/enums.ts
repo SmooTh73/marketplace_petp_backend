@@ -9,6 +9,6 @@ export enum EAccountType {
 }
 
 export enum EUserType {
-	customer,
-	seller
+	customer = 'Customer',
+	seller = 'Seller'
 }
