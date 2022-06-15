@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryColumn, BaseEntity, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany, JoinColumn } from "typeorm";
-import { Customer } from "./customer-model";
+import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToOne, ManyToOne, JoinColumn } from "typeorm";
 import { Product } from './product-model';
 import { Basket } from "./basket-model";
 
