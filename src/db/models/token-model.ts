@@ -6,7 +6,9 @@ export class Token extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({
+        unique: true
+    })
     refresh: string;
 
     // @OneToOne()
