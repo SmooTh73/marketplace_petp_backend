@@ -6,8 +6,7 @@ import { IToken } from '../../interfaces/token-interfaces';
 export default {
     async save(id: any, refreshToken: string): Promise<IToken> {
         const token = await db.Token.findOneBy({ id });
-        if (token) {
-            console.log('token exits')
+        if (token && id) {
             token.refresh = refreshToken;
             return await token.save();
         }
