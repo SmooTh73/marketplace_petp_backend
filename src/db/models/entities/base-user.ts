@@ -6,7 +6,7 @@ import { Length, IsEmail } from "class-validator";
 export class BaseUser extends BaseEntity {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @Column()
     name: string;

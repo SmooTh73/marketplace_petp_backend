@@ -4,6 +4,7 @@ import { EUserType } from '../../config/enums';
 import ApiError from '../../errors/api-error';
 import bcrypt from 'bcrypt';
 import tokenGenerators from '../../generators/token-generators';
+import tokenService from '../tokenService';
 
 export default {
     async register(
@@ -23,13 +24,12 @@ export default {
                     email: data.email,
                     password: cryptedPass
         })
-
+        
         const tokens = tokenGenerators.generateTokens({ id: user.id, type: accountType }, 'user');
-        const tokenToDB = db.Token.create({ refresh: tokens.refreshToken });
-
+        const tokenToDB = await tokenService.save(user.token_id, tokens.refreshToken);
+        
         user.token_id = tokenToDB;  
         await user.save();
-        await tokenToDB.save();
 
         return tokens;
     }

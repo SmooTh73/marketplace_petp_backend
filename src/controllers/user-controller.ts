@@ -17,7 +17,10 @@ export default {
             const type: keyof typeof EUserType = req.params.type as keyof typeof EUserType;
 
             const tokens = await userService.register(data, type);
-            res.json({ success: true, tokens });
+            res.cookie('refreshUserToken', tokens.refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true,
+            }).json({ success: true, accessToken: tokens.accessToken });
         } catch (err) {
             next(err);
         }
