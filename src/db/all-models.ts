@@ -1,24 +1,30 @@
-import { Customer } from './models/customer-model';
-import { Admin } from './models/admin-model';
-import { Store } from './models/store-model';
-import { Seller } from './models/seller-model';
-import { Rating } from './models/rating-model';
-import { Product, Type, Brand } from './models/product-model';
-import { Basket } from './models/basket-model';
-import { BasketProduct } from './models/basket-product-model';
-import { Token } from './models/token-model';
+import BasketProduct from './models/basket-product.model';
+import Basket from './models/basket.model';
+import Brand from './models/brand.model';
+import CategoryBrand from './models/category-brand.model';
+import Category from './models/category.model';
+import OrderProduct from './models/order-product.model';
+import Order from './models/order.model';
+import Product from './models/product.model';
+import Review from './models/review.model';
+import Store from './models/store.model';
+import Token from './models/token.model';
+import User from './models/user.model';
+
+
 
 
 export default {
-    Customer,
-    Admin,
-    Store,
-    Seller,
-    Rating,
-    Product,
-    Type,
-    Brand,
-    Basket,
     BasketProduct,
-    Token
+    Basket,
+    Brand,
+    Category,
+    CategoryBrand,
+    OrderProduct,
+    Order,
+    Product,
+    Review,
+    Store,
+    Token,
+    User
 }

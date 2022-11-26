@@ -8,12 +8,12 @@ import userTypeSchema from '../validation/user/user-type-schema';
 const userRouter = Router();
 
 //________________POST_______________//
-userRouter.post(
-    '/register/:type',
-    validationMiddleware(userSchema, 'body'),
-    validationMiddleware(userTypeSchema, 'params'),
-    userController.register
-);
+// userRouter.post(
+//     '/register/:type',
+//     validationMiddleware(userSchema, 'body'),
+//     validationMiddleware(userTypeSchema, 'params'),
+//     userController.register
+// );
 
 
 export default userRouter;

@@ -11,9 +11,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.listen(config.app.PORT, () => {
+app.listen(config.app.PORT, async () => {
     try {
-        db();
+        await db();
     } catch (error) {
         throw error;
     }

@@ -1,23 +1,19 @@
-import { DataSource } from 'typeorm';
 import config from '../config/index';
 import path from 'path';
+import { Sequelize } from 'sequelize-typescript';
 
 
 const initialize = async () => {
-    const connectionDataSource = new DataSource({
-        // @ts-ignore
-        type: config.database.type,
-        host: config.database.host,
-        port: config.database.port,
+    const initialize = new Sequelize({
+        database: config.database.name,
         username: config.database.username,
         password: config.database.password,
-        database: config.database.name,
-        entities: [path.join(__dirname, '/models/*-model{.ts,.js}')],
-        synchronize: true,
-        autoSchemaSync: true,
+        port: config.database.port,
+        host: config.database.host,
+        models: [path.join(__dirname, '/models/*.model{.ts,.js}')],
+        dialect: 'postgres'
     });
-
-    await connectionDataSource.initialize();
+    await initialize.authenticate();
     console.log('Connect to marketplace_petp DB')
 }
 

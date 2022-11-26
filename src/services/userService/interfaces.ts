@@ -1,4 +1,4 @@
-import { IBaseUser } from "../../interfaces/user-interfaces";
+import { IBaseUser } from "../../interfaces/user.interfaces";
 
 
 export interface ICustomer extends IBaseUser {
