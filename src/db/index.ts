@@ -14,6 +14,7 @@ const initialize = async () => {
         dialect: 'postgres'
     });
     await initialize.authenticate();
+    await initialize.sync();
     console.log('Connect to marketplace_petp DB')
 }
 
