@@ -1,5 +1,6 @@
 interface IStatusCodes {
 	OK: number;
+	CREATED: number;
 	BAD_REQUEST: number;
 	UNAUTHORIZED: number;
 	FORBIDDEN: number;

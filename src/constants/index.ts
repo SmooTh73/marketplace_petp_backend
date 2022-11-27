@@ -3,6 +3,7 @@ import { IConstants } from "./interfaces";
 const constants: IConstants = {
     statusCode: {
         OK: 200,
+        CREATED: 201,
         FORBIDDEN: 403,
         SERVER_ERROR: 500,
         BAD_REQUEST: 400,
