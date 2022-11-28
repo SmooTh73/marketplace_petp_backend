@@ -1,15 +1,16 @@
+import Token from 'src/db/models/token.model';
 import db from '../../db/all-models';
 import ApiError from '../../errors/api-error';
 
 export default {
-    // async save(id: any, refreshToken: string): Promise<IToken> {
-    //     const token = await db.Token.findOneBy({ id });
-    //     if (token && id) {
-    //         token.refresh = refreshToken;
-    //         return await token.save();
-    //     }
-    //     const tokenToDB = db.Token.create({ refresh: refreshToken });
-    //     await tokenToDB.save();
-    //     return tokenToDB;
-    // }
+    async save(userId: string, refreshToken: string): Promise<Token> {
+        const token = await db.Token.findOne({ where: { userId } });
+        if (token && userId) {
+            token.refreshToken = refreshToken;
+            await token.save();
+            return  token;
+        }
+        const tokenToDB = await db.Token.create({ refreshToken, userId });
+        return tokenToDB;
+    }
 }

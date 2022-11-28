@@ -24,10 +24,7 @@ export default {
         })
         
         const tokens = tokenGenerators.generateTokens({ id: user.id, role: data.role }, 'user');
-        const tokenToDB = await tokenService.save(user.token_id, tokens.refreshToken);
-        
-        user.token_id = tokenToDB;  
-        await user.save();
+        await tokenService.save(user.id, tokens.refreshToken);
 
         return tokens;
     }
