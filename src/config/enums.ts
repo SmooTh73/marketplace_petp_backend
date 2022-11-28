@@ -10,5 +10,5 @@ export enum EAccountType {
 
 export enum EUserRole {
 	customer = 'customer',
-	seller = 'customer'
+	seller = 'seller'
 }

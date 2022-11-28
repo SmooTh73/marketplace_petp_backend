@@ -18,7 +18,7 @@ export default {
         if (!compare) throw ApiError.forbidden('Email or password is wrong');
 
         const tokens = tokenGenerators.generateTokens({ id: user.id, role: user.role }, 'user');
-        const tokenToDB = await tokenService.save(user.id, tokens.refreshToken);
+        await tokenService.save(user.id, tokens.refreshToken);
 
         return tokens;
     }

@@ -4,7 +4,6 @@ import ApiError from '../../errors/api-error';
 import bcrypt from 'bcrypt';
 import tokenGenerators from '../../generators/token-generators';
 import tokenService from '../tokenService';
-import { EUserRole } from 'src/config/enums';
 
 export default {
     async register(
