@@ -1,38 +1,24 @@
 import db from '../../db/all-models';
 import ApiError from '../../errors/api-error';
-import { EUserType } from '../../config/enums';
 import bcrypt from 'bcrypt';
 import tokenGenerators from '../../generators/token-generators';
 import tokenService from '../tokenService';
+import { EUserRole } from 'src/config/enums';
 
 
 export default {
     async login(
         email: string,
-        password: string,
-        type: keyof typeof EUserType
+        password: string
     ): Promise<{ accessToken: string, refreshToken: string }> {
-        const options = {
-            where: {
-                email
-            },
-            relations: ['token_id']
-        }
-        const user = (type === EUserType[EUserType.customer])
-            ? await db.Customer.findOne(options)
-            : await db.Seller.findOne(options);
+        const user = await db.User.findOne({ where: { email }});
+        if (!user) throw ApiError.forbidden('Email or password is wrong.');
 
-        if (!user) throw ApiError.badRequest('Email or password is wrong.');
+        const compare = await bcrypt.compare(password, user.password);
+        if (!compare) throw ApiError.forbidden('Email or password is wrong');
 
-        const compare = bcrypt.compare(password, user.password);
-        if (!compare) throw ApiError.badRequest('Email or password is wrong');
-
-        const tokens = tokenGenerators.generateTokens({ id: user.id, type }, 'user');
-
-        const tokenToDB: any = await tokenService.save(user.token_id.id, tokens.refreshToken);
-
-        user.token_id = tokenToDB;
-        await user.save();
+        const tokens = tokenGenerators.generateTokens({ id: user.id, role: user.role }, 'user');
+        const tokenToDB = await tokenService.save(user.id, tokens.refreshToken);
 
         return tokens;
     }
