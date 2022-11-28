@@ -6,30 +6,30 @@ import { EAccountType } from '../config/enums';
 
 export default {
     generateTokens(payload: string | Object, accountType: keyof typeof EAccountType) {
-        if (accountType === EAccountType[EAccountType.admin]) {
-            const accessToken = jwt.sign(
-                payload,
-                config.jwt.admin_access_secret,
-                { expiresIn: config.jwt.admin_access_expiresIn }
-            );
-            const refreshToken = jwt.sign(
-                payload,
-                config.jwt.admin_refresh_secret,
-                { expiresIn: config.jwt.admin_refresh_exriresIn }
-            );
+        // if (accountType === EAccountType[EAccountType.admin]) {
+        //     const accessToken = jwt.sign(
+        //         payload,
+        //         config.jwt.admin_access_secret,
+        //         { expiresIn: config.jwt.admin_access_expiresIn }
+        //     );
+        //     const refreshToken = jwt.sign(
+        //         payload,
+        //         config.jwt.admin_refresh_secret,
+        //         { expiresIn: config.jwt.admin_refresh_exriresIn }
+        //     );
 
-            return { accessToken, refreshToken };
-        }
+        //     return { accessToken, refreshToken };
+        // }
 
         const accessToken = jwt.sign(
             payload,
-            config.jwt.user_access_secret,
-            { expiresIn: config.jwt.user_access_expiresIn }
+            config.jwt[`${accountType}_access_secret`],
+            { expiresIn: config.jwt[`${accountType}_access_expiresIn`] }
         );
         const refreshToken = jwt.sign(
             payload,
-            config.jwt.user_refresh_secret,
-            { expiresIn: config.jwt.user_refresh_exriresIn }
+            config.jwt[`${accountType}_refresh_secret`],
+            { expiresIn: config.jwt[`${accountType}_refresh_exriresIn`] }
         );
 
         return { accessToken, refreshToken };

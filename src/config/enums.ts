@@ -8,7 +8,7 @@ export enum EAccountType {
 	admin = 'admin',
 }
 
-export enum EUserType {
-	customer = 'Customer',
-	seller = 'Seller'
+export enum EUserRole {
+	customer = 'customer',
+	seller = 'customer'
 }
