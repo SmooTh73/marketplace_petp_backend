@@ -20,7 +20,7 @@ export default {
                     email: data.email,
                     password: cryptedPass,
                     role: data.role
-        })
+        });
         
         const tokens = tokenGenerators.generateTokens({ id: user.id, role: data.role }, 'user');
         await tokenService.save(user.id, tokens.refreshToken);

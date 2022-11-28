@@ -5,6 +5,7 @@ import Review from './review.model';
 import Store from './store.model';
 import Token from './token.model';
 import { IBaseUser } from '../../interfaces/user.interfaces';
+import { EUserRole } from 'src/config/enums';
 
 
 @Table({ tableName: 'user'})
@@ -25,7 +26,7 @@ export default class User extends Model<User, IBaseUser> {
     password: string;
 
     @Column({ type: DataType.STRING, allowNull: false })
-    role: string;
+    role: EUserRole;
 
     @HasOne(() => Store)
     store: Store;
