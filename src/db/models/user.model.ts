@@ -5,7 +5,7 @@ import Review from './review.model';
 import Store from './store.model';
 import Token from './token.model';
 import { IBaseUser } from '../../interfaces/user.interfaces';
-import { EUserRole } from 'src/config/enums';
+import { EUserRole } from '../../config/enums';
 
 
 @Table({ tableName: 'user'})
