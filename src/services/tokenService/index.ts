@@ -27,7 +27,7 @@ export default {
         if (!verify) throw ApiError.unauthorized('User is unauthorized');
 
         const user = await db.User.findByPk(tokenFromDb.userId);
-        if (!user) throw ApiError.unauthorized('User is unauthorized');
+        if (!user) throw ApiError.forbidden('User is unauthorized');
 
         const tokens = tokenGenerators.generateTokens({ id: user.id, role: user.role }, 'user');
         

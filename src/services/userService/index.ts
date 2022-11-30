@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import tokenGenerators from '../../generators/token-generators';
 import tokenService from '../tokenService';
 
+
 export default {
     async register(
         data: IBaseUser

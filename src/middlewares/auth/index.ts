@@ -7,7 +7,7 @@ import ApiError from '../../errors/api-error';
 import { IReqWithToken } from '../../controllers/interfaces';
 
 
-export default { 
+export default  {
     async authToken(
         req: IReqWithToken,
         res: Response,
@@ -23,6 +23,7 @@ export default {
             if (!verifiedData) throw ApiError.unauthorized('Invalid access token');
 
             req.user = verifiedData;
+
             next();
         } catch (err) {
             next(ApiError.unauthorized(err.message, [err]));
