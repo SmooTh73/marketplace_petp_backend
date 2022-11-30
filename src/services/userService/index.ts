@@ -4,12 +4,13 @@ import ApiError from '../../errors/api-error';
 import bcrypt from 'bcrypt';
 import tokenGenerators from '../../generators/token-generators';
 import tokenService from '../tokenService';
+import { IGeneratorRes } from 'src/interfaces/token.interfaces';
 
 
 export default {
     async register(
         data: IBaseUser
-    ): Promise<{ accessToken: string, refreshToken: string }> {
+    ): Promise<IGeneratorRes> {
         const candidate = await db.User.findOne({ where: { email: data.email }});
         if (candidate) throw ApiError.badRequest('User with this email already exists.');
 

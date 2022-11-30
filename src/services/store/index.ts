@@ -1,6 +1,6 @@
 import db from '../../db/all-models';
 import Store from '../../db/models/store.model';
-import { IBaseStore, IStoreCreationAttrs } from '../../interfaces/store.interfaces';
+import { IStoreCreationAttrs } from '../../interfaces/store.interfaces';
 import ApiError from '../../errors/api-error';
 
 
