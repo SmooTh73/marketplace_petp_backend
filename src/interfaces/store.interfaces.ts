@@ -3,3 +3,7 @@ export interface IBaseStore {
     description: string;
     logo: string;
 }
+
+export interface IStoreCreationAttrs extends IBaseStore {
+    userId: string;
+}

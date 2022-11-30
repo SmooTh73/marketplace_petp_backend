@@ -1,7 +1,7 @@
-import { IBaseRequest } from "../controllers/interfaces";
+import { IBaseRequest, IReqWithToken } from "../controllers/interfaces";
 import { Request } from "express";
 
 
-export interface ICustomReq<B> extends Request, IBaseRequest {
+export interface ICustomReq<B> extends IReqWithToken {
     body: B;
 }
