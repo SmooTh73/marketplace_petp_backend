@@ -5,6 +5,7 @@ import { IBaseUser } from '../interfaces/user.interfaces';
 import { IBaseStore } from '../interfaces/store.interfaces';
 import storeService from '../services/store';
 import { IReqWithToken } from './interfaces';
+import { IEditUser } from 'src/services/userService/interfaces';
 
 
 export default {
@@ -48,7 +49,22 @@ export default {
     ): Promise<void> {
         try {
             const user = await userService.getProfile(req.user.id);
-            
+
+            res.json({ success: true, user });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async editProfile(
+        req: ICustomReq<IEditUser>,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const attrs = req.body;
+            const user = await userService.editProfile(req.user.id, attrs);
+
             res.json({ success: true, user });
         } catch (err) {
             next(err);

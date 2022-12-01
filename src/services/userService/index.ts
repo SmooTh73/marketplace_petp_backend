@@ -6,6 +6,8 @@ import tokenGenerators from '../../generators/token-generators';
 import tokenService from '../tokenService';
 import { IGeneratorRes } from 'src/interfaces/token.interfaces';
 import User from 'src/db/models/user.model';
+import { IEditUser } from './interfaces';
+import { ProfileDto } from './dto/profile.dto';
 
 
 export default {
@@ -40,5 +42,16 @@ export default {
                 attributes: { exclude: ['password', 'createdAt', 'updatedAt']}
             }
         );
+    },
+
+    async editProfile(
+        id: string,
+        attrs: IEditUser
+    ): Promise<ProfileDto> {
+        const [, user] = await db.User.update(
+            {...attrs},
+            { where: { id }, returning: true }
+        );
+        return new ProfileDto(user[0]);
     }
 }

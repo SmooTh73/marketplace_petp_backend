@@ -27,5 +27,11 @@ userRouter.get(
     userController.getProfile
 );
 
+userRouter.patch(
+    '/',
+    authMiddleware.authToken,
+    userController.editProfile
+);
+
 
 export default userRouter;
