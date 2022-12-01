@@ -14,13 +14,6 @@ userRouter.post(
     userController.register
 );
 
-userRouter.post(
-    '/create-store',
-    authMiddleware.authToken,
-    roleMiddleware('seller'),
-    userController.createStore
-);
-
 userRouter.get(
     '/',
     authMiddleware.authToken,
