@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import tokenGenerators from '../../generators/token-generators';
 import tokenService from '../tokenService';
 import { IGeneratorRes } from 'src/interfaces/token.interfaces';
+import User from 'src/db/models/user.model';
 
 
 export default {
@@ -28,5 +29,16 @@ export default {
         await tokenService.save(user.id, tokens.refreshToken);
 
         return tokens;
+    },
+
+    async getProfile(
+        id: string
+    ): Promise<User> {
+        return await db.User.findByPk(
+            id,
+            {
+                attributes: { exclude: ['password', 'createdAt', 'updatedAt']}
+            }
+        );
     }
 }

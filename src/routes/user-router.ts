@@ -21,5 +21,11 @@ userRouter.post(
     userController.createStore
 );
 
+userRouter.get(
+    '/',
+    authMiddleware.authToken,
+    userController.getProfile
+);
+
 
 export default userRouter;

@@ -4,6 +4,7 @@ import userService from '../services/userService/index';
 import { IBaseUser } from '../interfaces/user.interfaces';
 import { IBaseStore } from '../interfaces/store.interfaces';
 import storeService from '../services/store';
+import { IReqWithToken } from './interfaces';
 
 
 export default {
@@ -35,6 +36,20 @@ export default {
 
             const store = await storeService.create({ ...data, userId: req.user.id });
             res.status(201).json({ success: true, store });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async getProfile(
+        req: IReqWithToken,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const user = await userService.getProfile(req.user.id);
+            
+            res.json({ success: true, user });
         } catch (err) {
             next(err);
         }
