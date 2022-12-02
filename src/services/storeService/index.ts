@@ -26,5 +26,11 @@ export default {
             { where: { userId: id }, returning: true }
         );
         return store[0];
+    },
+
+    async get(
+        id: string
+    ): Promise<Store> {
+        return await db.Store.findByPk(id);
     }
 }

@@ -4,6 +4,7 @@ import { IEditStore } from 'src/services/storeService/interfaces';
 import { ICustomReq } from '../interfaces/request.interfaces';
 import { IBaseStore } from '../interfaces/store.interfaces';
 import storeService from '../services/storeService/index'
+import { IReqWithToken } from './interfaces';
 
 
 export default {
@@ -31,6 +32,20 @@ export default {
             const attrs = req.body;
 
             const store = await storeService.edit(req.user.id, attrs);
+            res.json({ success: true, store });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async get(
+        req: IReqWithToken,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const store = await storeService.get(req.params.id);
+
             res.json({ success: true, store });
         } catch (err) {
             next(err);

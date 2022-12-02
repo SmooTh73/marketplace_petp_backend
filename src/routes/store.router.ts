@@ -22,4 +22,10 @@ storeRouter.patch(
     storeController.edit
 );
 
+storeRouter.get(
+    '/:id',
+    authMiddleware.authToken,
+    storeController.get
+);
+
 export default storeRouter;
