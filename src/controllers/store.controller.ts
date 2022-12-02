@@ -1,4 +1,5 @@
 import { Response, NextFunction } from 'express';
+import { IEditStore } from 'src/services/storeService/interfaces';
 
 import { ICustomReq } from '../interfaces/request.interfaces';
 import { IBaseStore } from '../interfaces/store.interfaces';
@@ -20,4 +21,19 @@ export default {
             next(err);
         }
     },
+
+    async edit(
+        req: ICustomReq<IEditStore>,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const attrs = req.body;
+
+            const store = await storeService.edit(req.user.id, attrs);
+            res.json({ success: true, store });
+        } catch (err) {
+            next(err);
+        }
+    }
 }

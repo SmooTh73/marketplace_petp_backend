@@ -9,8 +9,17 @@ const storeRouter = Router();
 
 
 storeRouter.post(
-    '/create-store',
+    '/',
     authMiddleware.authToken,
     roleMiddleware('seller'),
     storeController.create
 );
+
+storeRouter.patch(
+    '/',
+    authMiddleware.authToken,
+    roleMiddleware('seller'),
+    storeController.edit
+);
+
+export default storeRouter;

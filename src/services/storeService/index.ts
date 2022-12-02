@@ -2,6 +2,7 @@ import db from '../../db/all-models';
 import Store from '../../db/models/store.model';
 import { IStoreCreationAttrs } from '../../interfaces/store.interfaces';
 import ApiError from '../../errors/api-error';
+import { IEditStore } from './interfaces';
 
 
 export default {
@@ -14,5 +15,16 @@ export default {
         const store = await db.Store.create({ ...attrs });
 
         return store;
+    },
+
+    async edit(
+        id: string,
+        attrs: IEditStore
+    ): Promise<Store> {
+        const [, store] = await db.Store.update(
+            {...attrs},
+            { where: { userId: id }, returning: true }
+        );
+        return store[0];
     }
 }
