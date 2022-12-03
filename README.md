@@ -24,6 +24,8 @@
         2. Add product to basket
         3. Rate product
         4. Search products
+- ### **Brand & Category**
+
 - ### **Chat**
     - **"customer"**
         1. Create chat with seller on some product's page

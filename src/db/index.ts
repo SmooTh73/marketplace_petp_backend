@@ -1,6 +1,7 @@
 import config from '../config/index';
 import path from 'path';
 import { Sequelize } from 'sequelize-typescript';
+import { EMode } from '../config/enums';
 
 
 const initialize = async () => {
@@ -14,7 +15,9 @@ const initialize = async () => {
         dialect: 'postgres'
     });
     await initialize.authenticate();
-    await initialize.sync();
+    if (config.mode === EMode[0]) {
+        await initialize.sync({ alter: true });
+    }
     console.log('Connect to marketplace_petp DB')
 }
 

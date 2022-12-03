@@ -17,6 +17,9 @@ export default class Product extends Model<Product, IBaseProduct> {
 
     @Column({ type: DataType.STRING, allowNull: false })
     description: string;
+
+    @Column({ type: DataType.STRING })
+    text: string;
     
     @Column({ type: DataType.INTEGER, validate: { min: 0 }, allowNull: false })
     amount: number;
