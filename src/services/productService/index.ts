@@ -2,6 +2,7 @@ import ApiError from '../../errors/api-error';
 import db from '../../db/all-models';
 import Product from '../../db/models/product.model';
 import { ICreateProduct } from '../../interfaces/product.interfaces';
+import { IEditProduct } from './interfaces';
 
 
 export default {
@@ -20,5 +21,23 @@ export default {
         if (!match) throw ApiError.badRequest('Category and brand don\'t match.');
         
         return await db.Product.create({ ...attrs, storeId: store.id });
+    },
+
+    async edit(
+        attrs: IEditProduct,
+        productId:string,
+        userId: string
+    ): Promise<Product> {
+        const store = await db.Store.findOne({ where: { userId }, attributes: ['id']});
+        if (!store) throw ApiError.badRequest('User doesn\'t have store');
+
+        const product = await db.Product.findByPk(productId);
+        if (!product) throw ApiError.notFound('Product not found');
+        if (product.storeId !== store.id) throw ApiError.forbidden('Edit access denied');
+
+        product.set({...attrs});
+        await product.save();
+
+        return product;
     }
 }

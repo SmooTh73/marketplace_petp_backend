@@ -16,4 +16,11 @@ productRouter.post(
     productController.create
 );
 
+productRouter.patch(
+    '/:id',
+    authMiddleware.authToken,
+    roleMiddleware('seller'),
+    productController.edit
+);
+
 export default productRouter;
