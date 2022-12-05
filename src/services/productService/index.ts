@@ -4,6 +4,18 @@ import Product from '../../db/models/product.model';
 import { ICreateProduct } from '../../interfaces/product.interfaces';
 import { IEditProduct } from './interfaces';
 
+async function checkPossession(
+    productId:string,
+    userId: string
+): Promise<Product> {
+    const store = await db.Store.findOne({ where: { userId }, attributes: ['id']});
+    if (!store) throw ApiError.badRequest('User doesn\'t have store');
+
+    const product = await db.Product.findByPk(productId);
+    if (!product) throw ApiError.notFound('Product not found');
+    if (product.storeId !== store.id) throw ApiError.forbidden('Edit access denied');
+    return product;
+}
 
 export default {
     async create(
@@ -28,12 +40,7 @@ export default {
         productId:string,
         userId: string
     ): Promise<Product> {
-        const store = await db.Store.findOne({ where: { userId }, attributes: ['id']});
-        if (!store) throw ApiError.badRequest('User doesn\'t have store');
-
-        const product = await db.Product.findByPk(productId);
-        if (!product) throw ApiError.notFound('Product not found');
-        if (product.storeId !== store.id) throw ApiError.forbidden('Edit access denied');
+        const product = await checkPossession(productId, userId);
 
         product.set({...attrs});
         await product.save();
