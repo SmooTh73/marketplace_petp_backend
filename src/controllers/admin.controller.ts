@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import categoryService from '../services/categoryService';
 import brandService from '../services/brandService';
+import constants from '../constants';
 
 
 export default {
@@ -14,7 +15,7 @@ export default {
 
             const brand = await brandService.create({ name }, categoryId);
 
-            res.status(201).json({ success: true, brand });
+            res.status(constants.statusCode.CREATED).json({ success: true, brand });
         } catch (err) {
             next(err);
         }
@@ -28,11 +29,12 @@ export default {
         try {
             const category = await categoryService.create(req.body);
 
-            res.status(201).json({ success: true, category });
+            res.status(constants.statusCode.CREATED).json({ success: true, category });
         } catch (err) {
             next(err);
         }
-    }
-}
+    },
 
-//How to create brand or category if none of them have not created?
+
+
+}

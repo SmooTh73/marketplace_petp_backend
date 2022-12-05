@@ -1,10 +1,11 @@
 import { Response, NextFunction } from 'express';
-import { IEditStore } from 'src/services/storeService/interfaces';
+import { IEditStore } from '../services/storeService/interfaces';
 
 import { ICustomReq } from '../interfaces/request.interfaces';
 import { IBaseStore } from '../interfaces/store.interfaces';
 import storeService from '../services/storeService/index'
 import { IReqWithToken } from './interfaces';
+import constants from '../constants';
 
 
 export default {
@@ -17,7 +18,7 @@ export default {
             const data = req.body;
 
             const store = await storeService.create({ ...data, userId: req.user.id });
-            res.status(201).json({ success: true, store });
+            res.status(constants.statusCode.CREATED).json({ success: true, store });
         } catch (err) {
             next(err);
         }

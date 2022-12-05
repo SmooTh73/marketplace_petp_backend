@@ -2,10 +2,9 @@ import { Response, NextFunction } from "express";
 import { ICustomReq } from "../interfaces/request.interfaces";
 import userService from '../services/userService/index';
 import { IBaseUser } from '../interfaces/user.interfaces';
-import { IBaseStore } from '../interfaces/store.interfaces';
-import storeService from '../services/storeService';
 import { IReqWithToken } from './interfaces';
-import { IEditUser } from 'src/services/userService/interfaces';
+import { IEditUser } from '../services/userService/interfaces';
+import constants from '../constants';
 
 
 export default {
@@ -18,10 +17,13 @@ export default {
             const data = req.body;
 
             const tokens = await userService.register(data);
-            res.cookie('refreshUserToken', tokens.refreshToken, {
+            res
+            .cookie('refreshUserToken', tokens.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-            }).status(201).json({ success: true, accessToken: tokens.accessToken });
+            })
+            .status(constants.statusCode.CREATED)
+            .json({ success: true, accessToken: tokens.accessToken });
         } catch (err) {
             next(err);
         }
