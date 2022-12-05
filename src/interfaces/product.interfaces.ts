@@ -2,7 +2,7 @@ export interface IBaseProduct {
     title: string;
     description: string;
     text: string;
-    amount: string;
+    amount: number;
     price: number;
     image: string;
     brandId: string;
@@ -11,5 +11,5 @@ export interface IBaseProduct {
 }
 
 export interface ICreateProduct extends Omit<IBaseProduct, 'storeId'> {
-    
+
 }

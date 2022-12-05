@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { ICreateProduct } from '../interfaces/product.intrefaces';
+import { ICreateProduct } from '../interfaces/product.interfaces';
 import { ICustomReq } from '../interfaces/request.interfaces';
 import productService from '../services/productService';
 import constants from '../constants';

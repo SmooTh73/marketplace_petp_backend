@@ -1,5 +1,5 @@
 import { Column, DataType, Table, Model, ForeignKey, BelongsTo, HasOne, HasMany } from 'sequelize-typescript';
-import { IBaseProduct } from '../../interfaces/product.intrefaces';
+import { IBaseProduct } from '../../interfaces/product.interfaces';
 import BasketProduct from './basket-product.model';
 import Brand from './brand.model';
 import Category from './category.model';
@@ -24,7 +24,7 @@ export default class Product extends Model<Product, IBaseProduct> {
     @Column({ type: DataType.INTEGER, validate: { min: 0 }, allowNull: false })
     amount: number;
 
-    @Column({ type: DataType.INTEGER, validate: { min: 0 }, allowNull: false})
+    @Column({ type: DataType.FLOAT, validate: { min: 0 }, allowNull: false})
     price: number; 
     
     @Column({ type: DataType.STRING })

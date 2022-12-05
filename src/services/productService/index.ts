@@ -1,7 +1,7 @@
-import ApiError from 'src/errors/api-error';
+import ApiError from '../../errors/api-error';
 import db from '../../db/all-models';
 import Product from '../../db/models/product.model';
-import { ICreateProduct } from '../../interfaces/product.intrefaces';
+import { ICreateProduct } from '../../interfaces/product.interfaces';
 
 
 export default {
