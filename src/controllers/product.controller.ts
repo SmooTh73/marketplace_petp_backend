@@ -61,7 +61,10 @@ export default {
         try {
             const productId = req.params.id;
 
-            const product = await productService.getOne(productId);
+            const product = (req.url.slice(0, 5) === '/own/')
+                ? await productService.getOneOwn(productId, req.user.id)   
+                : await productService.getOne(productId);
+
             res.json({ success: true, product });
         } catch (err) {
             next(err);

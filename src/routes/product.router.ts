@@ -31,6 +31,13 @@ productRouter.delete(
 );
 
 productRouter.get(
+    '/own/:id',
+    authMiddleware.authToken,
+    roleMiddleware('seller'),
+    productController.getOne
+);
+
+productRouter.get(
     '/:id',
     authMiddleware.authToken,
     productController.getOne

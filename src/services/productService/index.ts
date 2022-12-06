@@ -3,7 +3,7 @@ import db from '../../db/all-models';
 import Product from '../../db/models/product.model';
 import { ICreateProduct } from '../../interfaces/product.interfaces';
 import { IEditProduct } from './interfaces';
-import { EUserRole } from 'src/config/enums';
+
 
 async function checkPossession(
     productId:string,
@@ -66,5 +66,12 @@ export default {
             productId,
             { attributes: { exclude: ['amount', 'createdAt', 'updatedAt']}}
         );
+    },
+
+    async getOneOwn(
+        productId: string,
+        userId: string
+    ): Promise<Product> {
+        return await checkPossession(productId, userId);
     }
 }
