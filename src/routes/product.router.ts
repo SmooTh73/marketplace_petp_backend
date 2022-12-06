@@ -23,4 +23,11 @@ productRouter.patch(
     productController.edit
 );
 
+productRouter.delete(
+    '/:id',
+    authMiddleware.authToken,
+    roleMiddleware('seller'),
+    productController.delete
+);
+
 export default productRouter;

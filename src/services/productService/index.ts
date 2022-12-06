@@ -37,7 +37,7 @@ export default {
 
     async edit(
         attrs: IEditProduct,
-        productId:string,
+        productId: string,
         userId: string
     ): Promise<Product> {
         const product = await checkPossession(productId, userId);
@@ -46,5 +46,14 @@ export default {
         await product.save();
 
         return product;
+    },
+
+    async delete(
+        productId: string,
+        userId: string
+    ): Promise<void> {
+        const product = await checkPossession(productId, userId);
+        
+        await product.destroy();
     }
 }

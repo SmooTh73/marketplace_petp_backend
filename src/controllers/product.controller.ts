@@ -5,6 +5,7 @@ import { ICustomReq } from '../interfaces/request.interfaces';
 import productService from '../services/productService';
 import constants from '../constants';
 import { IEditProduct } from '../services/productService/interfaces';
+import { IReqWithToken } from './interfaces';
 
 
 export default {
@@ -32,6 +33,21 @@ export default {
             
             const product = await productService.edit(req.body, productId, req.user.id);
             res.json({ success: true, product });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async delete(
+        req: IReqWithToken,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const productId = req.params.id;
+
+            await productService.delete(productId, req.user.id);
+            res.json({ success: true });
         } catch (err) {
             next(err);
         }
