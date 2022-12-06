@@ -3,6 +3,7 @@ import db from '../../db/all-models';
 import Product from '../../db/models/product.model';
 import { ICreateProduct } from '../../interfaces/product.interfaces';
 import { IEditProduct } from './interfaces';
+import { EUserRole } from 'src/config/enums';
 
 async function checkPossession(
     productId:string,
@@ -55,5 +56,15 @@ export default {
         const product = await checkPossession(productId, userId);
         
         await product.destroy();
+    },
+
+    async getOne(
+        productId: string
+    ): Promise<Product> {
+        //Add store.name brand.name category.name
+        return await db.Product.findByPk(
+            productId,
+            { attributes: { exclude: ['amount', 'createdAt', 'updatedAt']}}
+        );
     }
 }

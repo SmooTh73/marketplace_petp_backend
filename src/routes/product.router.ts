@@ -30,4 +30,10 @@ productRouter.delete(
     productController.delete
 );
 
+productRouter.get(
+    '/:id',
+    authMiddleware.authToken,
+    productController.getOne
+);
+
 export default productRouter;

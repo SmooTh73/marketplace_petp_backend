@@ -51,5 +51,20 @@ export default {
         } catch (err) {
             next(err);
         }
+    },
+
+    async getOne(
+        req: IReqWithToken,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const productId = req.params.id;
+
+            const product = await productService.getOne(productId);
+            res.json({ success: true, product });
+        } catch (err) {
+            next(err);
+        }
     }
 }
