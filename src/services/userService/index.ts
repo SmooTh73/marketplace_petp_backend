@@ -1,13 +1,15 @@
+import bcrypt from 'bcrypt';
+
 import db from '../../db/all-models';
 import { IBaseUser } from '../../interfaces/user.interfaces';
 import ApiError from '../../errors/api-error';
-import bcrypt from 'bcrypt';
 import tokenGenerators from '../../generators/token-generators';
 import tokenService from '../tokenService';
-import { IGeneratorRes } from 'src/interfaces/token.interfaces';
-import User from 'src/db/models/user.model';
+import { IGeneratorRes } from '../../interfaces/token.interfaces';
+import User from '../../db/models/user.model';
 import { IEditUser } from './interfaces';
 import { ProfileDto } from './dto/profile.dto';
+import { EUserRole } from '../../config/enums';
 
 
 export default {
@@ -29,6 +31,11 @@ export default {
         
         const tokens = tokenGenerators.generateTokens({ id: user.id, role: data.role }, 'user');
         await tokenService.save(user.id, tokens.refreshToken);
+
+        //Create user's basket
+        if (user.role === EUserRole['customer']) {
+            await db.Basket.create({ userId: user.id });
+        }
 
         return tokens;
     },
