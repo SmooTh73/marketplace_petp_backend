@@ -1,4 +1,4 @@
-import User from 'src/db/models/user.model';
+import User from '../../../db/models/user.model';
 
 
 export class ProfileDto {

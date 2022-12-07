@@ -4,7 +4,7 @@ import Product from './product.model';
 import User from './user.model';
 
 
-@Table({ tableName: 'rating'})
+@Table({ tableName: 'review'})
 export default class Review extends Model<Review, IBaseReview> {
     @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4, unique: true, primaryKey: true })
     id: string;
