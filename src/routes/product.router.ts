@@ -43,4 +43,11 @@ productRouter.get(
     productController.getOne
 );
 
+productRouter.post(
+    '/review',
+    authMiddleware.authToken,
+    roleMiddleware('customer'),
+    productController.createReview
+);
+
 export default productRouter;

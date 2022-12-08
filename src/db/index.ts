@@ -3,8 +3,7 @@ import path from 'path';
 import { Sequelize } from 'sequelize-typescript';
 import { EMode } from '../config/enums';
 
-
-const initialize = async () => {
+export default async () => {
     const initialize = new Sequelize({
         database: config.database.name,
         username: config.database.username,
@@ -19,8 +18,5 @@ const initialize = async () => {
         await initialize.sync({ alter: true });
     }
     console.log('Connect to marketplace_petp DB')
-}
-
-export default async () => {
-    await initialize();
+    return initialize;
 }

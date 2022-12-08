@@ -6,6 +6,8 @@ import productService from '../services/productService';
 import constants from '../constants';
 import { IEditProduct } from '../services/productService/interfaces';
 import { IReqWithToken } from './interfaces';
+import { ICreateReview } from '../interfaces/review.interfaces';
+import reviewService from '../services/reviewService';
 
 
 export default {
@@ -67,6 +69,21 @@ export default {
 
             res.json({ success: true, product });
         } catch (err) {
+            next(err);
+        }
+    },
+
+    async createReview(
+        req: ICustomReq<ICreateReview>,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const review = await reviewService.create(req.user.id, req.body);
+            await productService.updateRating(req.body.productId);
+            res.status(constants.statusCode.CREATED).json({ success: true, review });
+        } catch (err) {
+            console.log(err.message)
             next(err);
         }
     }

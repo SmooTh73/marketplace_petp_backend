@@ -3,7 +3,7 @@ import db from '../../db/all-models';
 import Product from '../../db/models/product.model';
 import { ICreateProduct } from '../../interfaces/product.interfaces';
 import { IEditProduct } from './interfaces';
-
+import sequelize from 'sequelize';
 
 async function checkPossession(
     productId:string,
@@ -73,5 +73,21 @@ export default {
         userId: string
     ): Promise<Product> {
         return await checkPossession(productId, userId);
+    },
+
+    async updateRating(
+        productId: string
+    ): Promise<void> {
+        const rating = await db.Review.findAll({
+            where: { productId },
+            attributes: [
+                // @ts-ignore
+                [sequelize.fn('AVG', sequelize.col('rating')), 'average_rating']
+            ]
+        });
+        await db.Product.update(
+            //@ts-ignore
+            { rating: rating[0].dataValues.average_rating }, { where: { id: productId }}
+        );
     }
 }

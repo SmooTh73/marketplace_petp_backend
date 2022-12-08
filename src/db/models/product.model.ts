@@ -30,6 +30,9 @@ export default class Product extends Model<Product, IBaseProduct> {
     @Column({ type: DataType.STRING })
     image: string;
 
+    @Column({ type: DataType.FLOAT, defaultValue: 0, validate: { min: 0, max: 5 }})
+    rating: number;
+
     @ForeignKey(() => Store)
     @Column({ type: DataType.UUID })
     storeId: string;
