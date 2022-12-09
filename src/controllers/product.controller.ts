@@ -4,10 +4,8 @@ import { ICreateProduct } from '../interfaces/product.interfaces';
 import { ICustomReq } from '../interfaces/request.interfaces';
 import productService from '../services/productService';
 import constants from '../constants';
-import { IEditProduct } from '../services/productService/interfaces';
+import { IEditProductReq } from '../services/productService/interfaces';
 import { IReqWithToken } from './interfaces';
-import { ICreateReview } from '../interfaces/review.interfaces';
-import reviewService from '../services/reviewService';
 
 
 export default {
@@ -26,14 +24,12 @@ export default {
     },
 
     async edit(
-        req: ICustomReq<IEditProduct>,
+        req: ICustomReq<IEditProductReq>,
         res: Response,
         next: NextFunction
     ): Promise<void> {
         try {
-            const productId = req.params.id;
-            
-            const product = await productService.edit(req.body, productId, req.user.id);
+            const product = await productService.edit(req.body.attrs, req.body.id, req.user.id);
             res.json({ success: true, product });
         } catch (err) {
             next(err);
@@ -69,21 +65,6 @@ export default {
 
             res.json({ success: true, product });
         } catch (err) {
-            next(err);
-        }
-    },
-
-    async createReview(
-        req: ICustomReq<ICreateReview>,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
-        try {
-            const review = await reviewService.create(req.user.id, req.body);
-            await productService.updateRating(req.body.productId);
-            res.status(constants.statusCode.CREATED).json({ success: true, review });
-        } catch (err) {
-            console.log(err.message)
             next(err);
         }
     }

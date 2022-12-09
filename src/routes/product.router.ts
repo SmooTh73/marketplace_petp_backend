@@ -3,11 +3,10 @@ import { Router } from 'express';
 import authMiddleware from '../middlewares/auth/index';
 import roleMiddleware from '../middlewares/role/index';
 import productController from '../controllers/product.controller';
-
+import reviewController from '../controllers/review.controller';
 
 
 const productRouter = Router();
-
 
 productRouter.post(
     '/',
@@ -17,7 +16,7 @@ productRouter.post(
 );
 
 productRouter.patch(
-    '/:id',
+    '/',
     authMiddleware.authToken,
     roleMiddleware('seller'),
     productController.edit
@@ -47,7 +46,14 @@ productRouter.post(
     '/review',
     authMiddleware.authToken,
     roleMiddleware('customer'),
-    productController.createReview
+    reviewController.create
+);
+
+productRouter.patch(
+    '/review',
+    authMiddleware.authToken,
+    roleMiddleware('customer'),
+    reviewController.edit
 );
 
 export default productRouter;
