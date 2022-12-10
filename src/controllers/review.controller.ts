@@ -5,6 +5,7 @@ import { ICustomReq } from '../interfaces/request.interfaces';
 import productService from '../services/productService';
 import { ICreateReview, IEditReview } from '../interfaces/review.interfaces';
 import reviewService from '../services/reviewService';
+import { IReqWithToken } from './interfaces';
 
 
 export default {
@@ -34,6 +35,21 @@ export default {
             await productService.updateRating(review.productId);
 
             res.json({ success: true, review });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async getMany(
+        req: IReqWithToken,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const productId = req.params.id;
+
+            const reviews = await reviewService.getMany(productId);
+            res.json({ success: true, reviews });
         } catch (err) {
             next(err);
         }

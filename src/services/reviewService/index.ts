@@ -1,6 +1,7 @@
 import { ICreateReview, IEditReview } from '../../interfaces/review.interfaces';
 import db from '../../db/all-models';
 import Review from '../../db/models/review.model';
+import sequelize from 'sequelize';
 
 
 export default {
@@ -19,5 +20,14 @@ export default {
             { where: { id: attrs.id }, returning: true }
         );
         return review[0];
+    },
+
+    async getMany(
+        productId: string,
+    ): Promise<Review[]> {
+        return await db.Review.findAll({ 
+            where: { productId },
+            order: [['createdAt', 'DESC']]
+        });
     }
 }

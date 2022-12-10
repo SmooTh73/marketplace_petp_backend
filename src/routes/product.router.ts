@@ -56,4 +56,10 @@ productRouter.patch(
     reviewController.edit
 );
 
+productRouter.get(
+    '/review/many/:id',
+    authMiddleware.authToken,
+    reviewController.getMany
+);
+
 export default productRouter;
