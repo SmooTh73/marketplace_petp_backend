@@ -9,6 +9,14 @@ const constants: IConstants = {
         BAD_REQUEST: 400,
         NOT_FOUND: 404,
         UNAUTHORIZED: 401
+    },
+
+    searchOptions: {
+        PAGE: 1,
+        LIMIT: 10,
+        PRICE_RANGE: { low: 0, high: 100000 },
+        SORT: true,
+        SORT_TYPE: 'rating',
     }
 }
 
