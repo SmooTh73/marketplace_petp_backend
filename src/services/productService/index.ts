@@ -2,8 +2,9 @@ import ApiError from '../../errors/api-error';
 import db from '../../db/all-models';
 import Product from '../../db/models/product.model';
 import { ICreateProduct } from '../../interfaces/product.interfaces';
-import { IEditProduct } from './interfaces';
+import { IEditProduct, ISearchOptions } from './interfaces';
 import sequelize from 'sequelize';
+import { SearchOptionsDto } from './dto/search-options.dto';
 
 async function checkPossession(
     productId:string,
@@ -89,5 +90,22 @@ export default {
             //@ts-ignore
             { rating: rating[0].dataValues.average_rating }, { where: { id: productId }}
         );
+    },
+
+    async getMany(
+        optnFields: ISearchOptions
+    ): Promise<Product[]> {
+        const optionFields = new SearchOptionsDto(optnFields);
+        const optionsObject = {
+            //other options
+            offset: ((optionFields.page - 1) * optionFields.limit),
+            limit: optionFields.limit,
+            subQuery: false,
+        }
+        // add to opt object
+        // attributes: [ *fields*, deep brand (name)]
+        // where: { title: regural, price: between range, rating less then, category, brand in brand[] }
+        // order: [by price, by rating]
+        return await db.Product.findAll(optionsObject);
     }
 }
