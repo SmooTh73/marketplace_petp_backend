@@ -96,16 +96,33 @@ export default {
         optnFields: ISearchOptions
     ): Promise<Product[]> {
         const optionFields = new SearchOptionsDto(optnFields);
+        console.log(optionFields.priceRange.high)
         const optionsObject = {
             //other options
+            include:[
+                { model: db.Brand, as: 'brand', attributes: ['id', 'name'] },
+                { model: db.Category, as: 'category', attributes: ['id', 'name']},
+                { model: db.Store, as: 'store', attributes: ['id', 'name']}
+            ],
+            attributes: {
+                exclude: ['amount', 'createdAt', 'updatedAt', 'text', 'brandId', 'storeId', 'categoryId'] 
+            },
+            where: {
+                price: {
+                    [sequelize.Op.between]: [optionFields.priceRange.low, optionFields.priceRange.high]
+                }
+            },
             offset: ((optionFields.page - 1) * optionFields.limit),
             limit: optionFields.limit,
             subQuery: false,
         }
+
+        // if()
         // add to opt object
-        // attributes: [ *fields*, deep brand (name)]
+        // attributes: [ *fields*, deep brand (name)] +
         // where: { title: regural, price: between range, rating less then, category, brand in brand[] }
         // order: [by price, by rating]
+        // if()
         return await db.Product.findAll(optionsObject);
     }
 }

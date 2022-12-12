@@ -42,6 +42,11 @@ productRouter.get(
     productController.getOne
 );
 
+productRouter.get(
+    '/many/get',
+    productController.getMany
+);
+
 productRouter.post(
     '/review',
     authMiddleware.authToken,

@@ -4,7 +4,7 @@ import { ICreateProduct } from '../interfaces/product.interfaces';
 import { ICustomReq } from '../interfaces/request.interfaces';
 import productService from '../services/productService';
 import constants from '../constants';
-import { IEditProductReq } from '../services/productService/interfaces';
+import { IEditProductReq, ISearchOptions } from '../services/productService/interfaces';
 import { IReqWithToken } from './interfaces';
 
 
@@ -64,6 +64,19 @@ export default {
                 : await productService.getOne(productId);
 
             res.json({ success: true, product });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async getMany(
+        req: ICustomReq<ISearchOptions>,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const products = await productService.getMany(req.body);
+            res.json({ success: true, products });
         } catch (err) {
             next(err);
         }
