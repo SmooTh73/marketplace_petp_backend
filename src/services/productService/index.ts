@@ -96,7 +96,8 @@ export default {
         optnFields: ISearchOptions
     ): Promise<Product[]> {
         const optionFields = new SearchOptionsDto(optnFields);
-        console.log(optionFields.priceRange.high)
+        const titleRegExp = `^${optionFields.title}`;
+        
         const optionsObject = {
             //other options
             include:[
@@ -110,6 +111,12 @@ export default {
             where: {
                 price: {
                     [sequelize.Op.between]: [optionFields.priceRange.low, optionFields.priceRange.high]
+                },
+                title: {
+                    [sequelize.Op.iRegexp]: titleRegExp
+                },
+                rating: {
+                    [sequelize.Op.lt]: optionFields.rating
                 }
             },
             offset: ((optionFields.page - 1) * optionFields.limit),
@@ -117,10 +124,15 @@ export default {
             subQuery: false,
         }
 
-        // if()
+        if (optionFields.category) {
+            Object.assign(optionsObject.where, { categoryId: optionFields.category });
+        }
+        if (optionFields.brands.length !== 0) {
+            Object.assign(optionsObject.where, { brandId: { [sequelize.Op.in]: optionFields.brands }});
+        } 
         // add to opt object
         // attributes: [ *fields*, deep brand (name)] +
-        // where: { title: regural, price: between range, rating less then, category, brand in brand[] }
+        // where: { title: regural(+), price: between range(+), rating less then(+), category(+), brand in brand[](+) }(+)
         // order: [by price, by rating]
         // if()
         return await db.Product.findAll(optionsObject);

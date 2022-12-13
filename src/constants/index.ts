@@ -14,9 +14,10 @@ const constants: IConstants = {
     searchOptions: {
         PAGE: 1,
         LIMIT: 10,
-        PRICE_RANGE: { low: 0, high: 60 },
+        PRICE_RANGE: { low: 0, high: 100000 },
         SORT: true,
         SORT_TYPE: 'rating',
+        RATING: 5
     }
 }
 

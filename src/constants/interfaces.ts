@@ -14,6 +14,7 @@ interface IDefaultSearchOptions {
 	PRICE_RANGE: { low: number; high: number; };
 	SORT: boolean;
 	SORT_TYPE: string;
+	RATING: number;
 }
 
 export interface IConstants {
