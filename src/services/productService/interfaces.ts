@@ -1,3 +1,5 @@
+import { EOrder, EOrderDirection } from '../../enums/product-enums';
+
 export interface IEditProduct {
     title?: string;
     description?: string;
@@ -20,6 +22,6 @@ export interface ISearchOptions {
     priceRange?: { low: number; high: number; }
     category?: string;
     brands?: string[];
-    sortType?: string;
-    sort?: boolean;
+    orderDirection?: keyof typeof EOrderDirection;
+    order?: keyof typeof EOrder;
 }

@@ -97,9 +97,8 @@ export default {
     ): Promise<Product[]> {
         const optionFields = new SearchOptionsDto(optnFields);
         const titleRegExp = `^${optionFields.title}`;
-        
-        const optionsObject = {
-            //other options
+
+        const optionsObject: sequelize.FindOptions<Product> = {
             include:[
                 { model: db.Brand, as: 'brand', attributes: ['id', 'name'] },
                 { model: db.Category, as: 'category', attributes: ['id', 'name']},
@@ -119,6 +118,7 @@ export default {
                     [sequelize.Op.lt]: optionFields.rating
                 }
             },
+            order: [[optionFields.order, optionFields.orderDirection]],
             offset: ((optionFields.page - 1) * optionFields.limit),
             limit: optionFields.limit,
             subQuery: false,
@@ -129,12 +129,8 @@ export default {
         }
         if (optionFields.brands.length !== 0) {
             Object.assign(optionsObject.where, { brandId: { [sequelize.Op.in]: optionFields.brands }});
-        } 
-        // add to opt object
-        // attributes: [ *fields*, deep brand (name)] +
-        // where: { title: regural(+), price: between range(+), rating less then(+), category(+), brand in brand[](+) }(+)
-        // order: [by price, by rating]
-        // if()
+        }
+
         return await db.Product.findAll(optionsObject);
     }
 }

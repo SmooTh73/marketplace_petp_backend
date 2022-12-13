@@ -15,8 +15,8 @@ const constants: IConstants = {
         PAGE: 1,
         LIMIT: 10,
         PRICE_RANGE: { low: 0, high: 100000 },
-        SORT: true,
-        SORT_TYPE: 'rating',
+        ORDER: 'rating',
+        ORDER_DIRECTION: 'DESC',
         RATING: 5
     }
 }

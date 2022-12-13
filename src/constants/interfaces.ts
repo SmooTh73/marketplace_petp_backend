@@ -12,8 +12,8 @@ interface IDefaultSearchOptions {
 	PAGE: number;
 	LIMIT: number;
 	PRICE_RANGE: { low: number; high: number; };
-	SORT: boolean;
-	SORT_TYPE: string;
+	ORDER: string;
+	ORDER_DIRECTION: string;
 	RATING: number;
 }
 

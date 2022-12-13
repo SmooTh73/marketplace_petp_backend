@@ -10,8 +10,8 @@ export class SearchOptionsDto {
     priceRange: { low: number; high: number; }
     category?: string;
     brands?: string[];
-    sortType: string;
-    sort: boolean;
+    order?: string;
+    orderDirection?: string;
 
     constructor(options: ISearchOptions) {
         this.limit = options.limit || constants.searchOptions.LIMIT;
@@ -20,8 +20,8 @@ export class SearchOptionsDto {
         this.priceRange = options.priceRange || constants.searchOptions.PRICE_RANGE;
         if (options.category) this.category = options.category;
         this.brands = options.brands || [];
-        this.sort = options.sort || constants.searchOptions.SORT;
-        this.sortType = options.sortType || constants.searchOptions.SORT_TYPE;
+        this.order =  options.order || constants.searchOptions.ORDER;
+        this.orderDirection = options.orderDirection || constants.searchOptions.ORDER_DIRECTION;
         this.rating = options.rating || constants.searchOptions.RATING;
     }
 }
