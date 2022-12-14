@@ -23,7 +23,7 @@ productRouter.patch(
 );
 
 productRouter.delete(
-    '/:id',
+    '/',
     authMiddleware.authToken,
     roleMiddleware('seller'),
     productController.delete
@@ -65,6 +65,20 @@ productRouter.get(
     '/review/many/:id',
     authMiddleware.authToken,
     reviewController.getMany
+);
+
+productRouter.post(
+    '/to-basket',
+    authMiddleware.authToken,
+    roleMiddleware('customer'),
+    productController.addToBasket
+);
+
+productRouter.delete(
+    '/from-basket',
+    authMiddleware.authToken,
+    roleMiddleware('customer'),
+    productController.removeFromBasket
 );
 
 export default productRouter;

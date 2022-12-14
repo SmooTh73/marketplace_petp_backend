@@ -4,8 +4,9 @@ import { ICreateProduct } from '../interfaces/product.interfaces';
 import { ICustomReq } from '../interfaces/request.interfaces';
 import productService from '../services/productService';
 import constants from '../constants';
-import { IEditProductReq, ISearchOptions } from '../services/productService/interfaces';
+import { IEditProductReq, IProductId, ISearchOptions } from '../services/productService/interfaces';
 import { IReqWithToken } from './interfaces';
+import basketService from '../services/basketService';
 
 
 export default {
@@ -37,14 +38,12 @@ export default {
     },
 
     async delete(
-        req: IReqWithToken,
+        req: ICustomReq<IProductId>,
         res: Response,
         next: NextFunction
     ): Promise<void> {
         try {
-            const productId = req.params.id;
-
-            await productService.delete(productId, req.user.id);
+            await productService.delete(req.body.id, req.user.id);
             res.json({ success: true });
         } catch (err) {
             next(err);
@@ -77,6 +76,32 @@ export default {
         try {
             const products = await productService.getMany(req.body);
             res.json({ success: true, products });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async addToBasket(
+        req: ICustomReq<IProductId>,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            await basketService.addProduct(req.body.id, req.user.id);
+            res.json({ success: true });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async removeFromBasket(
+        req: ICustomReq<IProductId>,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            await basketService.deleteProduct(req.body.id, req.user.id);
+            res.json({ success: true });
         } catch (err) {
             next(err);
         }

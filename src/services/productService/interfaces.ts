@@ -9,8 +9,11 @@ export interface IEditProduct {
     image?: string;
 }
 
-export interface IEditProductReq {
+export interface IProductId {
     id: string;
+}
+
+export interface IEditProductReq extends IProductId {
     attrs: IEditProduct;
 }
 

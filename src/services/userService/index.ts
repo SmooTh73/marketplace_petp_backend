@@ -10,6 +10,7 @@ import User from '../../db/models/user.model';
 import { IEditUser } from './interfaces';
 import { ProfileDto } from './dto/profile.dto';
 import { EUserRole } from '../../config/enums';
+import basketService from '../basketService/index';
 
 
 export default {
@@ -34,7 +35,7 @@ export default {
 
         //Create user's basket
         if (user.role === EUserRole['customer']) {
-            await db.Basket.create({ userId: user.id });
+            await basketService.create(user.id);
         }
 
         return tokens;
