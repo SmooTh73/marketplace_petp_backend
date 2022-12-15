@@ -81,4 +81,11 @@ productRouter.delete(
     productController.removeFromBasket
 );
 
+productRouter.get(
+    '/basket/all',
+    authMiddleware.authToken,
+    roleMiddleware('customer'),
+    productController.getAllFromBasket
+);
+
 export default productRouter;

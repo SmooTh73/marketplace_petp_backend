@@ -105,5 +105,19 @@ export default {
         } catch (err) {
             next(err);
         }
+    },
+
+    async getAllFromBasket(
+        req: IReqWithToken,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const basketProducts = await basketService.getAll(req.user.id);
+            res.json({ success: true, basketProducts });
+        } catch (err) {
+            console.log(err)
+            next(err);
+        }
     }
 }

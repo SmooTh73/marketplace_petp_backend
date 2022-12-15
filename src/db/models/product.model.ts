@@ -54,7 +54,7 @@ export default class Product extends Model<Product, IBaseProduct> {
     @BelongsTo(() => Brand)
     brand: Brand;
 
-    @HasOne(() => BasketProduct)
+    @HasMany(() => BasketProduct)
     basket_product: BasketProduct;
 
     @HasMany(() => Review)
