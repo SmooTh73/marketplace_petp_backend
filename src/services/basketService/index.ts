@@ -1,6 +1,7 @@
 import Basket from '../../db/models/basket.model';
 import db from '../../db/all-models';
 import BasketProduct from 'src/db/models/basket-product.model';
+import { IBasketProduct } from '../productService/interfaces';
 
 
 export default {
@@ -9,12 +10,12 @@ export default {
     },
 
     async addProduct(
-        productId: string,
+        attrs: IBasketProduct,
         userId: string
     ): Promise<BasketProduct> {
         const basket = await db.Basket.findOne({ where: { userId }, attributes: ['id'] });
         return await db.BasketProduct.create(
-            { productId, basketId: basket.id },
+            { productId: attrs.id, amount: attrs.amount, basketId: basket.id },
             { 
                 include: [
                     { model: db.Product, as: 'product', attributes: ['id', 'title', 'image'] }

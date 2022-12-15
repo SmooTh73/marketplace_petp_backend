@@ -13,6 +13,10 @@ export interface IProductId {
     id: string;
 }
 
+export interface IBasketProduct extends IProductId {
+    amount: number;
+}
+
 export interface IEditProductReq extends IProductId {
     attrs: IEditProduct;
 }

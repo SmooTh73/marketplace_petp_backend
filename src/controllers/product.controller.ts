@@ -4,7 +4,7 @@ import { ICreateProduct } from '../interfaces/product.interfaces';
 import { ICustomReq } from '../interfaces/request.interfaces';
 import productService from '../services/productService';
 import constants from '../constants';
-import { IEditProductReq, IProductId, ISearchOptions } from '../services/productService/interfaces';
+import { IBasketProduct, IEditProductReq, IProductId, ISearchOptions } from '../services/productService/interfaces';
 import { IReqWithToken } from './interfaces';
 import basketService from '../services/basketService';
 
@@ -82,12 +82,12 @@ export default {
     },
 
     async addToBasket(
-        req: ICustomReq<IProductId>,
+        req: ICustomReq<IBasketProduct>,
         res: Response,
         next: NextFunction
     ): Promise<void> {
         try {
-            await basketService.addProduct(req.body.id, req.user.id);
+            await basketService.addProduct(req.body, req.user.id);
             res.json({ success: true });
         } catch (err) {
             next(err);
