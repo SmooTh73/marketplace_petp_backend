@@ -10,7 +10,7 @@ import Review from './models/review.model';
 import Store from './models/store.model';
 import Token from './models/token.model';
 import User from './models/user.model';
-
+import ContactInfo from './models/contact-info.model';
 
 
 
@@ -26,5 +26,6 @@ export default {
     Review,
     Store,
     Token,
-    User
+    User,
+    ContactInfo
 }
