@@ -38,8 +38,8 @@ export default class User extends Model<User, IBaseUser> {
     @HasOne(() => Basket)
     basket: Basket;
 
-    @HasMany(() => ContactInfo)
-    contactInfog:ContactInfo;
+    @HasOne(() => ContactInfo)
+    contactInfog: ContactInfo;
 
     @HasMany(() => Order)
     orders: Order[];
