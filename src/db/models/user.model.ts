@@ -6,6 +6,7 @@ import Store from './store.model';
 import Token from './token.model';
 import { IBaseUser } from '../../interfaces/user.interfaces';
 import { EUserRole } from '../../config/enums';
+import ContactInfo from './contact-info.model';
 
 
 @Table({ tableName: 'user'})
@@ -36,6 +37,9 @@ export default class User extends Model<User, IBaseUser> {
 
     @HasOne(() => Basket)
     basket: Basket;
+
+    @HasMany(() => ContactInfo)
+    contactInfog:ContactInfo;
 
     @HasMany(() => Order)
     orders: Order[];

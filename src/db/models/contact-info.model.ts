@@ -1,5 +1,6 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import Order from './order.model';
+import User from './user.model';
 
 
 @Table({ tableName: 'contact_info'})
@@ -22,10 +23,13 @@ export default class ContactInfo extends Model<ContactInfo> {
     @Column({ type: DataType.STRING, allowNull: false })
     address: string;
 
-    @ForeignKey(() => Order)
+    @ForeignKey(() => User)
     @Column({ type: DataType.UUID })
-    orderId: string
+    userId: string
 
-    @BelongsTo(() => Order)
-    user: Order;
+    @BelongsTo(() => User)
+    user: User;
+
+    @HasMany(() => Order)
+    order: Order;
 }

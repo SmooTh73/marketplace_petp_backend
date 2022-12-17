@@ -23,6 +23,10 @@ export default class Order extends Model<Order, IBaseOrder> {
     @HasMany(() => OrderProduct)
     order_products: OrderProduct[];
 
-    @HasOne(() => ContactInfo)
+    @ForeignKey(() => ContactInfo)
+    @Column({ type: DataType.UUID})
+    contactInfoId: string;
+
+    @BelongsTo(() => ContactInfo)
     contactInfo: ContactInfo;
 }
