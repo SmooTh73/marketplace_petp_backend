@@ -26,5 +26,11 @@ userRouter.patch(
     userController.editProfile
 );
 
+userRouter.post(
+    '/contact-info',
+    authMiddleware.authToken,
+    userController.createContactInfo
+);
+
 
 export default userRouter;

@@ -5,6 +5,8 @@ import { IBaseUser } from '../interfaces/user.interfaces';
 import { IReqWithToken } from './interfaces';
 import { IEditUser } from '../services/userService/interfaces';
 import constants from '../constants';
+import { IAttrsContactInfo } from 'src/services/contactInfoService/interfaces';
+import contactInfoService from 'src/services/contactInfoService';
 
 
 export default {
@@ -53,6 +55,19 @@ export default {
             const user = await userService.editProfile(req.user.id, attrs);
 
             res.json({ success: true, user });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async createContactInfo(
+        req: ICustomReq<IAttrsContactInfo>,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const contactInfo = await contactInfoService.create({ ...req.body, userId: req.user.id });
+            res.status(constants.statusCode.CREATED).json({ success: true, contactInfo });
         } catch (err) {
             next(err);
         }

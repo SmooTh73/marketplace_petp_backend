@@ -39,7 +39,7 @@ export default class User extends Model<User, IBaseUser> {
     basket: Basket;
 
     @HasOne(() => ContactInfo)
-    contactInfog: ContactInfo;
+    contactInfo: ContactInfo;
 
     @HasMany(() => Order)
     orders: Order[];

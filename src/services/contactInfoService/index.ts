@@ -8,5 +8,11 @@ export default {
         attrs: ICreateContactInfo
     ): Promise<ContactInfo>{
         return await db.ContactInfo.create(attrs);
+    },
+
+    async getOne(
+        userId: string,
+    ): Promise<ContactInfo> {
+        return await db.ContactInfo.findOne({ where: { userId }});
     }
 }

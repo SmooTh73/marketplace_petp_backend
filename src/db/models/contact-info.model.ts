@@ -24,8 +24,8 @@ export default class ContactInfo extends Model<ContactInfo> {
     address: string;
 
     @ForeignKey(() => User)
-    @Column({ type: DataType.UUID })
-    userId: string
+    @Column({ type: DataType.UUID, unique: true })
+    userId: string;
 
     @BelongsTo(() => User)
     user: User;
