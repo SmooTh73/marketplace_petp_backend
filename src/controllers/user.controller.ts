@@ -5,8 +5,8 @@ import { IBaseUser } from '../interfaces/user.interfaces';
 import { IReqWithToken } from './interfaces';
 import { IEditUser } from '../services/userService/interfaces';
 import constants from '../constants';
-import { IAttrsContactInfo } from 'src/services/contactInfoService/interfaces';
-import contactInfoService from 'src/services/contactInfoService';
+import { IAttrsContactInfo } from '../services/contactInfoService/interfaces';
+import contactInfoService from '../services/contactInfoService';
 
 
 export default {
@@ -68,6 +68,20 @@ export default {
         try {
             const contactInfo = await contactInfoService.create({ ...req.body, userId: req.user.id });
             res.status(constants.statusCode.CREATED).json({ success: true, contactInfo });
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    async deleteContactInfo(
+        req: IReqWithToken,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            await contactInfoService.unlink(req.user.id);
+
+            res.json({ success: true });
         } catch (err) {
             next(err);
         }

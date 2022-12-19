@@ -32,5 +32,12 @@ userRouter.post(
     userController.createContactInfo
 );
 
+userRouter.delete(
+    '/contact-info',
+    authMiddleware.authToken,
+    roleMiddleware('customer'),
+    userController.deleteContactInfo
+);
+
 
 export default userRouter;

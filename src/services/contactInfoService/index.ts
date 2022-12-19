@@ -14,5 +14,11 @@ export default {
         userId: string,
     ): Promise<ContactInfo> {
         return await db.ContactInfo.findOne({ where: { userId }});
+    },
+
+    async unlink(
+        userId: string,
+    ): Promise<void> {
+        await db.ContactInfo.update({ userId: null }, { where: { userId }});
     }
 }
