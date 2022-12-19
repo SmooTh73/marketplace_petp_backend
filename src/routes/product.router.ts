@@ -4,6 +4,7 @@ import authMiddleware from '../middlewares/auth/index';
 import roleMiddleware from '../middlewares/role/index';
 import productController from '../controllers/product.controller';
 import reviewController from '../controllers/review.controller';
+import orderController from '../controllers/order.controller';
 
 
 const productRouter = Router();
@@ -86,6 +87,13 @@ productRouter.get(
     authMiddleware.authToken,
     roleMiddleware('customer'),
     productController.getAllFromBasket
+);
+
+productRouter.post(
+    '/order/basket',
+    authMiddleware.authToken,
+    roleMiddleware('customer'),
+    orderController.createFromBasket
 );
 
 export default productRouter;
