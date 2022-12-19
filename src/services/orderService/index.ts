@@ -18,7 +18,7 @@ export default {
             {
                 where: { basketId: basket.id },
                 include: [
-                    { model: Product, as: 'product', attributes: ['price'] }
+                    { model: Product, as: 'product', attributes: ['price', 'storeId'] }
                 ]
             }
         );
@@ -42,7 +42,8 @@ export default {
                 {
                     amount: basketProducts[i].amount,
                     productId: basketProducts[i].productId,
-                    orderId: order.id
+                    orderId: order.id,
+                    storeId: basketProducts[i].product.storeId
                 }
             );
         }

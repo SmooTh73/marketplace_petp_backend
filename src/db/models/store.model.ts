@@ -2,6 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from '
 import { IBaseStore } from '../../interfaces/store.interfaces';
 import Product from './product.model';
 import User from './user.model';
+import OrderProduct from './order-product.model';
 
 
 @Table({ tableName: 'store' })
@@ -24,6 +25,9 @@ export default class Store extends Model<Store, IBaseStore> {
 
     @BelongsTo(() => User)
     user: User;
+
+    @HasMany(() => OrderProduct)
+    order: OrderProduct[];
 
     @HasMany(() => Product)
     products: Product[];
