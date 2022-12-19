@@ -12,8 +12,9 @@ export default {
 
     async getOne(
         userId: string,
+        exclude?: string[]
     ): Promise<ContactInfo> {
-        return await db.ContactInfo.findOne({ where: { userId }});
+        return await db.ContactInfo.findOne({ where: { userId }, attributes: { exclude }});
     },
 
     async unlink(
