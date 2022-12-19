@@ -24,7 +24,7 @@ export default class Order extends Model<Order, IBaseOrder> {
     order_products: OrderProduct[];
 
     @ForeignKey(() => ContactInfo)
-    @Column({ type: DataType.UUID})
+    @Column({ type: DataType.UUID })
     contactInfoId: string;
 
     @BelongsTo(() => ContactInfo)

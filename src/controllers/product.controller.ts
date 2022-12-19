@@ -116,7 +116,6 @@ export default {
             const basketProducts = await basketService.getAll(req.user.id);
             res.json({ success: true, basketProducts });
         } catch (err) {
-            console.log(err)
             next(err);
         }
     }

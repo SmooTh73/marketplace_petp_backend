@@ -56,7 +56,7 @@ export default {
     ): Promise<void> {
         const product = await checkPossession(productId, userId);
         
-        await product.destroy();
+        await product.destroy({ force: true });
     },
 
     async getOne(
