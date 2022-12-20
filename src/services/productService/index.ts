@@ -62,10 +62,16 @@ export default {
     async getOne(
         productId: string
     ): Promise<Product> {
-        //Add store.name brand.name category.name
         return await db.Product.findByPk(
             productId,
-            { attributes: { exclude: ['amount', 'createdAt', 'updatedAt']}}
+            {
+                attributes: { exclude: ['amount', 'createdAt', 'updatedAt']},
+                include: [
+                    { model: db.Store, attributes: ['id', 'name']},
+                    { model: db.Brand, attributes: ['id', 'name']},
+                    { model: db.Category, attributes: ['id', 'name']}
+                ]
+            }
         );
     },
 
@@ -82,12 +88,10 @@ export default {
         const rating = await db.Review.findAll({
             where: { productId },
             attributes: [
-                // @ts-ignore
                 [sequelize.fn('AVG', sequelize.col('rating')), 'average_rating']
             ]
         });
         await db.Product.update(
-            //@ts-ignore
             { rating: rating[0].dataValues.average_rating }, { where: { id: productId }}
         );
     },
