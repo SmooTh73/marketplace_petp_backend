@@ -31,5 +31,5 @@ export default class ContactInfo extends Model<ContactInfo> {
     user: User;
 
     @HasMany(() => Order)
-    order: Order;
+    order: Order[];
 }
