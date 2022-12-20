@@ -1,7 +1,7 @@
 # **<div align="center">Marketplace</div>**
 
 ## **<div align="center">PRD</div>**
-
+<!-- 
 - ### **User**
     1. Create (registration) with such fields: *name, surname, email, password, role*
     2. Edit fields: *name, surname, password*
@@ -32,7 +32,7 @@
         2. Finish the chat
 - ### **Basket("customer" only)**
     1. Remove products from basket
-    2. Order whole basket
+    2. Order whole basket -->
 
 
 
