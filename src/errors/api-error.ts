@@ -43,4 +43,11 @@ export default class ApiError extends Error {
             errors
         );
     }
+
+    static server() {
+        return new ApiError(
+            constants.statusCode.SERVER_ERROR,
+            'Uupsss.. server problem'
+        );
+    }
 }
