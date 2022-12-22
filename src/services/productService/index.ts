@@ -92,6 +92,7 @@ export default {
             ]
         });
         await db.Product.update(
+            //@ts-ignore
             { rating: rating[0].dataValues.average_rating }, { where: { id: productId }}
         );
     },
