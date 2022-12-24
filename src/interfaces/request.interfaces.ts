@@ -1,5 +1,4 @@
-import { IBaseRequest, IReqWithToken } from "../controllers/interfaces";
-import { Request } from "express";
+import { IReqWithToken } from "../controllers/interfaces";
 
 
 export interface ICustomReq<B> extends IReqWithToken {
