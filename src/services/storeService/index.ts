@@ -28,7 +28,7 @@ export default {
         return store[0];
     },
 
-    async get(
+    async getOne(
         id: string
     ): Promise<Store> {
         return await db.Store.findByPk(id);

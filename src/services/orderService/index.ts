@@ -4,11 +4,6 @@ import contactInfoService from '../contactInfoService';
 import Order from '../../db/models/order.model';
 import ApiError from '../../errors/api-error';
 import ContactInfo from '../../db/models/contact-info.model';
-import OrderProduct from '../../db/models/order-product.model';
-import { IStoreId } from 'src/interfaces/store.interfaces';
-import { IOrderId } from './interfaces';
-import orderProductService from '../orderProductService';
-import storeService from '../storeService';
 
 
 export default {
@@ -59,19 +54,11 @@ export default {
         return { order, contactInfo };
     },
 
-    async getOrderProducts(
-        userId: string,
-        attrs: IStoreId | IOrderId
-    ): Promise<OrderProduct[]> {
-        if (attrs instanceof IOrderId) {
-            return await orderProductService.getMany({...attrs, userId });
-        } else if (attrs instanceof IStoreId) {
-            const store = await storeService.get(attrs.storeId);
-            if (store.userId !== userId) throw ApiError.forbidden('You aren\'t store owner');
-            
-            return await orderProductService.getMany({...attrs});
-        } else {
-            throw ApiError.server();
-        }
+    async getOne(id: string): Promise<Order> {
+        return await db.Order.findByPk(id);
+    },
+
+    async getMany(userId: string): Promise<Order[]> {
+        return await db.Order.findAll({ where: { userId }});
     }
 }

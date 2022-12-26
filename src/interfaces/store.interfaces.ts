@@ -8,6 +8,6 @@ export interface IStoreCreationAttrs extends IBaseStore {
     userId: string;
 }
 
-export class IStoreId {
+export interface IStoreId {
     storeId: string;
 }
