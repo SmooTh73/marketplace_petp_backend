@@ -45,7 +45,7 @@ export default {
         next: NextFunction
     ): Promise<void> {
         try {
-            const store = await storeService.get(req.params.id);
+            const store = await storeService.getOne(req.params.id);
 
             res.json({ success: true, store });
         } catch (err) {

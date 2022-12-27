@@ -3,8 +3,7 @@ import { ICustomReq } from '../interfaces/request.interfaces';
 import orderService from '../services/orderService';
 import constants from '../constants';
 import { IReqWithToken } from './interfaces';
-import { IOrderId } from '../services/orderService/interfaces';
-import { IStoreId } from '../interfaces/store.interfaces';
+import orderProductService from '../services/orderProductService';
 
 
 export default {
@@ -24,12 +23,13 @@ export default {
     },
 
     async getOrderProducts(
-        req: ICustomReq<IOrderId | IStoreId>,
+        req: IReqWithToken,
         res: Response,
         next: NextFunction
     ): Promise<void> {
         try {
-            const orderProducts = await orderService.getOrderProducts(req.user.id, {...req.body});
+            const id = req.params.id;
+            const orderProducts = await orderProductService.getMany(req.user.id, req.user.role, id);
 
             res.json({ success: true, orderProducts });
         } catch (err) {

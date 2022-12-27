@@ -96,4 +96,10 @@ productRouter.post(
     orderController.createFromBasket
 );
 
+productRouter.get(
+    '/order/products/:id',
+    authMiddleware.authToken,
+    orderController.getOrderProducts
+);
+
 export default productRouter;
