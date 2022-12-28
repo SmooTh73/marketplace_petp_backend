@@ -96,6 +96,13 @@ productRouter.post(
     orderController.createFromBasket
 );
 
+productRouter.post(
+    '/order/product',
+    authMiddleware.authToken,
+    roleMiddleware('customer'),
+    orderController.createFromProduct
+);
+
 productRouter.get(
     '/order/products/:id',
     authMiddleware.authToken,

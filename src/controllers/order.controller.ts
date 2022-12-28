@@ -4,6 +4,7 @@ import orderService from '../services/orderService';
 import constants from '../constants';
 import { IReqWithToken } from './interfaces';
 import orderProductService from '../services/orderProductService';
+import { IBasketProduct } from '../services/productService/interfaces';
 
 
 export default {
@@ -18,6 +19,20 @@ export default {
             res.status(constants.statusCode.CREATED).json({ success: true, order, contactInfo });
         } catch (err) {
             console.log(err)
+            next(err);
+        }
+    },
+
+    async createFromProduct(
+        req: ICustomReq<IBasketProduct>,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        try {
+            const { order, contactInfo } = await orderService.createFromProduct(req.user.id, req.body);
+
+            res.status(constants.statusCode.CREATED).json({ success: true, order, contactInfo });
+        } catch (err) {
             next(err);
         }
     },

@@ -1,9 +1,4 @@
-
-
-export interface ICreateOrder {
-    
-}
-
-export class IOrderId {
-    orderId: string;
+export interface ICreateFromProduct {
+    productId: string;
+    amount: number;
 }
