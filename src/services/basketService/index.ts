@@ -1,7 +1,8 @@
 import Basket from '../../db/models/basket.model';
 import db from '../../db/all-models';
-import BasketProduct from 'src/db/models/basket-product.model';
+import BasketProduct from '../../db/models/basket-product.model';
 import { IBasketProduct } from '../productService/interfaces';
+import ApiError from '../../errors/api-error';
 
 
 export default {
@@ -14,6 +15,11 @@ export default {
         userId: string
     ): Promise<BasketProduct> {
         const basket = await db.Basket.findOne({ where: { userId }, attributes: ['id'] });
+        const product = await db.Product.findOne(
+            { where: { id: attrs.id}, attributes: ['id', 'amount']}
+        );
+        if (!product || attrs.amount > product.amount) throw ApiError.badRequest('Bad request');
+
         return await db.BasketProduct.create(
             { productId: attrs.id, amount: attrs.amount, basketId: basket.id },
             { 
