@@ -22,7 +22,7 @@ export default {
 
         return await db.BasketProduct.create(
             { productId: attrs.id, amount: attrs.amount, basketId: basket.id },
-            { 
+            {
                 include: [
                     { model: db.Product, as: 'product', attributes: ['id', 'title', 'image'] }
                 ]
