@@ -7,7 +7,8 @@ export interface IBaseToken {
 
 export interface ITokenPayload {
     id: string;
-    role: EUserRole;
+    role?: EUserRole;
+    name?: string;
 }
 
 export interface IGeneratorRes {
