@@ -11,6 +11,7 @@ import Store from './models/store.model';
 import Token from './models/token.model';
 import User from './models/user.model';
 import ContactInfo from './models/contact-info.model';
+import Admin from './models/admin.model';
 
 
 
@@ -27,5 +28,6 @@ export default {
     Store,
     Token,
     User,
-    ContactInfo
+    ContactInfo,
+    Admin
 }
