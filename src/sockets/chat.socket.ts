@@ -24,7 +24,6 @@ export default (server: Server) => {
                 } else {
                     activeModerators[candidateIndex] = { socket: data.socket, ...verifiedData };
                 }
-                console.log(activeModerators)
             } catch (err) {
                 data.socket.close(3000, err.message);
             }
@@ -92,7 +91,9 @@ export default (server: Server) => {
             rooms.splice(roomIndex, 1);
         }
     }
+
     const wss = new WebSocketServer({ server });
+
     wss.on('connection', (socket) => {
         socket.id = v4();
 
